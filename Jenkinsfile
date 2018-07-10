@@ -1,4 +1,4 @@
-DOCKER_IMAGE_TAG = "${env.BUILD_TIMESTAMP}-ee-alpine"
+DOCKER_IMAGE_TAG = "${env.BUILD_NUMBER}-ee-alpine"
 
 node {
     def docker_image
