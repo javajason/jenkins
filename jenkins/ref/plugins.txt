@@ -22,6 +22,7 @@ github-api:latest
 github-pullrequest:latest
 github:latest
 handlebars:latest
+http_request:latest
 jackson2-api:latest
 jdk-tool:latest
 jquery-detached:latest
