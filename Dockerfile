@@ -14,5 +14,4 @@ RUN apk update \
 
 COPY jenkins/ /usr/share/jenkins/
 
-RUN chown -R jenkins:root /usr/share/jenkins/ref \
-&& /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt

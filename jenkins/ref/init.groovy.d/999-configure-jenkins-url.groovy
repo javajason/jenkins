@@ -1,10 +1,21 @@
+import groovy.transform.SourceURI
 import jenkins.model.JenkinsLocationConfiguration
 
-def url = System.env.JENKINS_UI_URL
+@SourceURI URI sourceUri
+def initializationFile = new File(sourceUri.getPath() + ".run")
+def isInitialized = initializationFile.exists()
 
-def urlConfig = JenkinsLocationConfiguration.get()
-urlConfig.setUrl(url)
+def forceInitialization = System.getenv("JENKINS_FORCE_INITIALIZATION")
 
-urlConfig.save()
+if (forceInitialization || !isInitialized){
+    def url = System.env.JENKINS_UI_URL
 
-println("Jenkins URL Set to " + url)
+    def urlConfig = JenkinsLocationConfiguration.get()
+    urlConfig.setUrl(url)
+
+    urlConfig.save()
+
+    println("Jenkins URL Set to " + url)
+}
+
+initializationFile.createNewFile()
