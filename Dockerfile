@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.141-alpine
+FROM jenkins/jenkins:2.147-alpine
 
 ENV DOCKER_PACKAGE_VERSION="18.06.1-r0"
 ENV KUBECTL_VERSION="1.10.5"
