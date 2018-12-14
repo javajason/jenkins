@@ -1,7 +1,7 @@
-FROM jenkins/jenkins:2.150-alpine
+FROM jenkins/jenkins:2.155-alpine
 
 ENV DOCKER_PACKAGE_VERSION="18.06.1-r0"
-ENV KUBECTL_VERSION="1.10.5"
+ENV KUBECTL_VERSION="1.11.5"
 
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
