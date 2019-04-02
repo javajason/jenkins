@@ -1,0 +1,59 @@
+version: '3.7'
+  
+services:
+  server:
+    deploy:
+      labels:
+        com.docker.lb.hosts: ${JENKINS_FQDN}
+        com.docker.lb.network: ${STACK_NAME}_ingress
+        com.docker.lb.port: 8080
+        com.docker.lb.redirects: http://${JENKINS_FQDN},https://${JENKINS_FQDN}
+        com.docker.lb.ssl_cert: ${JENKINS_SSL_CERT_SECRET}
+        com.docker.lb.ssl_key: ${JENKINS_SSL_KEY_SECRET}
+        com.docker.ucp.access.label: ${UCP_COLLECTION}
+      placement:
+        constraints:
+          - "node.labels.com.docker.ucp.collection.system!=true"
+          - "node.labels.com.docker.ucp.collection.swarm==true"
+          - "node.labels.com.docker.ucp.orchestrator.swarm==true"
+    environment:
+      JENKINS_UI_URL: https://${JENKINS_FQDN}
+      METADATA: proxy-handles-tls
+    image: ${REGISTRY_FQDN}/${REGISTRY_NAMESPACE}/${REGISTRY_REPOSITORY}:${REGISTRY_TAG}
+    networks:
+      - ingress
+      - internal
+    secrets:
+      - jenkins-admin-password
+      - jenkins-admin-user
+      - jenkins-server.cert
+      - jenkins-server.key
+    volumes:
+      - jenkins-home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  ingress:
+    labels:
+      com.docker.ucp.access.label: ${UCP_COLLECTION}
+  internal:
+    labels:
+      com.docker.ucp.access.label: ${UCP_COLLECTION}
+
+secrets:
+  jenkins-admin-password:
+    external: true
+    name: ${JENKINS_ADMIN_PASSWORD_SECRET}
+  jenkins-admin-user:
+    external: true
+    name: ${JENKINS_ADMIN_USER_SECRET}
+  jenkins-server.cert:
+    external: true
+    name: ${JENKINS_SSL_CERT_SECRET}
+  jenkins-server.key:
+    external: true
+    name: ${JENKINS_SSL_KEY_SECRET}
+
+volumes:
+  jenkins-home:
+    driver: cloudstor

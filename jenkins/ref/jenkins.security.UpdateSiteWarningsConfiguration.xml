@@ -1,0 +1,5 @@
+<jenkins.security.UpdateSiteWarningsConfiguration>
+  <ignoredWarnings>
+    <string>SECURITY-248</string>
+  </ignoredWarnings>
+</jenkins.security.UpdateSiteWarningsConfiguration>
