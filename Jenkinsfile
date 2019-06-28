@@ -11,8 +11,7 @@ node {
                          'DOCKER_REGISTRY_URI',
                          'DOCKER_REGISTRY_CREDENTIALS_ID',
                          'DOCKER_UCP_URI',
-                         'DOCKER_UCP_CREDENTIALS_ID',
-                         'DOCKER_SERVICE_NAME' ]
+                         'DOCKER_UCP_CREDENTIALS_ID']
 
 
         fail = 0
@@ -38,9 +37,11 @@ node {
     }
 
     stage('Test') {
+        /* Figure out how to get this to work on a stand alone Jenkins instance running with the -u jenkins_uid:jenkins_gid
         docker_image.inside {
             sh 'echo "Tests passed"'
         }
+        */
     }
 
     stage('Push') {
