@@ -2,7 +2,7 @@ ARG base_image=jenkins/jenkins:2.180-alpine
 
 FROM ${base_image}
 
-ENV DOCKER_PACKAGE_VERSION="18.09.1-r0"
+ENV DOCKER_PACKAGE_VERSION="18.09.1-r10"
 ENV KUBECTL_VERSION="1.11.5"
 
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
